@@ -1,0 +1,87 @@
+#!/bin/sh
+
+teal_compile() { \
+	cat >> $2 << EOF
+<body>
+<div id="main">
+EOF
+	$MDC $1 >> $2
+cat >> $2 << EOF
+</div>
+</body>
+EOF
+
+	echo "MDC $1 >> $2"
+}
+
+teal_head() { \
+	name=$(echo $1 | sed 's/.html//' | awk -F"/" '{OFS="/"; print $NF}')
+	cat > $1 << EOF
+<head>
+<title>$name - $TITLE</title>
+<style>
+$(cat style.css)
+</style>
+</head>
+EOF
+	echo "HTMLINFO $1"
+}
+
+teal_sidebar() { \
+cat >> $1 << EOF
+<div id="side-bar">
+<ul>
+EOF
+	for f in $(find $SRC | grep .md); do
+		cat >> $1 << EOF
+<li><a href="$(echo $f | sed "s,$SRC/,," | sed 's/.md/.html/')">$(echo $f | sed "s,$SRC/,," | sed 's/.md//')</li>
+EOF
+	done
+cat >> $1 << EOF
+</ul>
+</div>
+EOF
+}
+
+teal_header() { \
+	cat >> $1 << EOF
+<div id="header">
+<h1>$TITLE</h1>
+</div>
+EOF
+}
+
+teal_footer() { \
+	cat >> $1 << EOF
+<div id="footer">
+<p>$FOOTER</p>
+</div>
+EOF
+}
+
+teal_loop() { \
+	# copy all necessary files from source dir to target dir
+	mkdir -p $TARGET
+	cp -rf $SRC/* $TARGET
+
+	# remove the source files
+	for f in $(find $TARGET | grep .md); do
+		rm -f $f
+	done
+
+	for f in $(find $SRC | grep .md); do
+		out="$TARGET/$(echo $f | sed 's/.md/.html/' | sed "s,$SRC/,,")"
+		teal_head $out
+		teal_header $out
+		teal_compile $f $out
+		teal_footer $out
+		teal_sidebar $out
+	done
+}
+
+
+[ ! -f "teal.conf" ] && echo "no teal.conf found! must abort." && exit 1
+[ ! -f "style.css" ] && echo "no style.css found! must abort." && exit 1
+
+. ./teal.conf
+teal_loop

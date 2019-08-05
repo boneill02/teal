@@ -1,0 +1,5 @@
+MDC=smu
+SRC=example
+TARGET=out
+TITLE="My Site"
+FOOTER="powered by <a href="https://github.com/swegbun/teal">teal</a>"

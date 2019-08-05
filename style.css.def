@@ -1,0 +1,105 @@
+/* based on the style.css from https://github.com/jroimartin/sw */
+
+body {
+	color: #000;
+	font-family: sans-serif;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+/* Header */
+#header { 
+	background-color: #dc322f;
+	border: 0;
+	position: fixed;
+	top: 0px;
+	height: 8%;
+	width: 100%;
+}
+#header a {
+	border: 0;
+	color: #000;
+	text-decoration: none;
+}
+#header h1 {
+	font-size: 1.6em;
+	font-weight: bold;
+	margin: 0 0 0 0.5em;
+	padding: 0.5em;
+}
+#header h3 {
+	font-size: 0.6em;
+	font-weight: normal;
+	margin-left: 1em;
+}
+
+/* Side */
+#side-bar {
+	width: 100%;
+	top: 8%;
+	position: fixed;
+	clear: both;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	background-color: #268bd2;
+}
+
+#side-bar ul {
+	margin: 0;
+	padding: 0.3em;
+	list-style-type: none;
+	list-style-image: none;
+	border: 0;
+}
+
+#side-bar li { display: inline; line-height: 1.6em; white-space: nowrap; }
+
+#side-bar ul li a {
+	margin: 0;
+	padding: 0.1em 1ex 0.1em 1ex;
+	color: #000;
+	background-color: transparent;
+	text-decoration: none;
+	font-size: 1em;
+	border: 0;
+}
+
+#side-bar ul li a:hover { color: #000; text-decoration: none; }
+
+/* Main */
+#main {
+	max-width: 70em;
+	padding: 8em 2em 10em 2em;
+	color: #000;
+}
+
+#main a { color: #000; text-decoration: bold; }
+#main a:hover { text-decoration: underline; }
+#main h1, h2, h3, h4, h5 { color: #000; }
+#main ul { list-style-type: square; }
+
+/* Footer */
+#footer {
+	background-color: #859900;
+	color: #000;
+	padding: 2em;
+	font-size: 91%;
+	height: 2%;
+	width: 100%;
+	bottom: 0px;
+	text-align: left;
+	position: fixed;
+}
+
+#footer .left { text-align: left; float: left; clear: left; }
+#footer a { color: #111; text-decoration: none; }
+#footer a:hover { text-decoration: underline; }
+
+abbr, acronym { border-bottom: 1px dotted #333; cursor: help; }
+blockquote { border-left: 1px solid #333; font-style: italic; padding: 1em; }
+hr { border-width: 0 0 0.1em 0; border-color: #666; }
+
+code, pre { font-size: 1.1em }
+pre { margin-left: 2em; }

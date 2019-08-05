@@ -1,0 +1,25 @@
+.TH TEAL.CONF 5 teal
+.SH NAME
+teal.conf \- static site configuration for teal
+.SH DESCRIPTION
+This is read as a shell script in the current working directory. It must have certain variables defined.
+.SH VARIABLES
+.TP
+.B MDC
+the Markdown compiler
+.TP
+.B SRC
+the Markdown source directory
+.TP
+.B TARGET
+the HTML output directory
+.TP
+.B TITLE
+the website title
+.TP
+.B FOOTER
+the website footer
+.SH SEE ALSO
+.BR teal (1),
+.BR smu (1),
+.BR pandoc (1)
