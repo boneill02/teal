@@ -34,6 +34,7 @@ cat >> $1 << EOF
 EOF
 	cat >> $1 << EOF
 <li><a href="index.html">.</a></li>
+EOF
 	for f in $(find $SRC | grep .md | sed "s/index.md//g"); do
 		cat >> $1 << EOF
 <li><a href="$(echo $f | sed "s,$SRC/,," | sed 's/.md/.html/')">$(echo $f | sed "s,$SRC/,," | sed 's/.md//')</a></li>
