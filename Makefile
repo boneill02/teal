@@ -28,10 +28,12 @@ install:
 	mkdir -p $(DESTDIR)/$(PREFIX)/bin
 	cp -f teal $(DESTDIR)$(PREFIX)/bin/teal
 	chmod 755 $(DESTDIR)$(PREFIX)/bin/teal
-	mkdir -p $(DESTDIR)/$(PREFIX)/share/man/man1
-	cp -f teal.1 $(DESTDIR)/$(PREFIX)/share/man/man1
-	mkdir -p $(DESTDIR)/$(PREFIX)/share/man/man5
-	cp -f teal.conf.5 $(DESTDIR)/$(PREFIX)/share/man/man5
+	mkdir -p $(DESTDIR)/$(MANPREFIX)/man1
+	cp -f teal.1 $(DESTDIR)/$(MANPREFIX)/man1
+	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/teal.1
+	mkdir -p $(DESTDIR)/$(MANPREFIX)/man5
+	cp -f teal.conf.5 $(DESTDIR)/$(MANPREFIX)/man5
+	chmod 644 $(DESTDIR)$(MANPREFIX)/man5/teal.conf.5
 
 uninstall:
 	rm -f $(DESTDIR)/$(PREFIX)/bin/teal
