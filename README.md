@@ -1,6 +1,8 @@
 # teal
 
-a simple static website generator.
+A simple static website generator written in POSIX sh. It uses a Markdown
+to HTML compiler for each page and adds a sidebar and attaches the provided
+stylesheet.
 
 ## Installation
 
