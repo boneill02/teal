@@ -19,9 +19,7 @@ teal_head() { \
 	cat > $1 << EOF
 <head>
 <title>$name - $TITLE</title>
-<style>
-$(cat style.css)
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 EOF
 	echo "HTMLINFO $1"
@@ -66,6 +64,7 @@ teal_loop() { \
 	# copy all necessary files from source dir to target dir
 	mkdir -p $TARGET
 	cp -rf $SRC/* $TARGET
+	cp -f style.css $TARGET
 
 	# remove the source files
 	for f in $(find $TARGET | grep .md); do
