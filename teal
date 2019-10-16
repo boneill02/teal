@@ -29,16 +29,14 @@ teal_sidebar() { \
 cat >> $1 << EOF
 <div id="side-bar">
 <ul>
-EOF
-	cat >> $1 << EOF
 <li><a href="index.html">.</a></li>
 EOF
-	for page in $EXTRA_PAGES; do
+	for f in $EXTRA_PAGES; do
 		cat >> $1 << EOF
-<li><a href="$(echo $page | awk -F ':' '{print $2}')">$(echo $page | awk -F ':' '{print $1}')</a></li>
+<li><a href="$(echo "$f.html")">$f</a></li>
 EOF
 	done
-	for f in $(find $SRC | grep .md | sed "s/index.md//g" | sort | sed '/^$/d'); do
+	for f in $(find "$SRC" | grep ".md" | sed "s/index.md\n//g" | sort | sed '/^$/d'); do
 		cat >> $1 << EOF
 <li><a href="$(echo $f | sed "s,$SRC/,," | sed 's/.md/.html/')">$(echo $f | sed "s,$SRC/,," | sed 's/.md//')</a></li>
 EOF
