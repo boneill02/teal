@@ -36,7 +36,7 @@ EOF
 <li><a href="$(echo "$f.html")">$f</a></li>
 EOF
 	done
-	for f in $(find "$SRC" | grep ".md" | sed "s/index.md\n//g" | sort | sed '/^$/d'); do
+	for f in $(find "$SRC" | grep ".md" | sed "s/index.md//g" | sort | sed '/^$/d'); do
 		cat >> $1 << EOF
 <li><a href="$(echo $f | sed "s,$SRC/,," | sed 's/.md/.html/')">$(echo $f | sed "s,$SRC/,," | sed 's/.md//')</a></li>
 EOF
