@@ -33,12 +33,12 @@ cat >> $1 << EOF
 EOF
 	for f in $EXTRA_PAGES; do
 		cat >> $1 << EOF
-<li><a href="$(echo "$f.html")">$f</a></li>
+<li><a href="$f.html">$f</a></li>
 EOF
 	done
-	for f in $(find "$SRC" | grep ".md" | sed "s/index.md$//g" | sort | sed '/^$/d'); do
+	for f in $(find "$SRC" | grep ".md" | sed "/index.md/d;/^$/d" | sort); do
 		cat >> $1 << EOF
-<li><a href="$(echo $f | sed "s,$SRC/,," | sed 's/.md/.html/')">$(echo $f | sed "s,$SRC/,," | sed 's/.md//')</a></li>
+<li><a href="$(echo $f | sed "s,$SRC/,,;s/\.md/\.html/")">$(echo $f | sed "s,$SRC/,,;s/.md//")</a></li>
 EOF
 	done
 cat >> $1 << EOF
@@ -75,7 +75,7 @@ teal_loop() { \
 	done
 
 	for f in $(find $SRC | grep .md); do
-		out="$TARGET/$(echo $f | sed 's/.md/.html/' | sed "s,$SRC/,,")"
+		out="$TARGET/$(echo $f | sed "s/\.md/\.html/;s,$SRC/,,;/^$/d")"
 		teal_head $out
 		teal_header $out
 		teal_compile $f $out
