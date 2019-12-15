@@ -31,6 +31,7 @@ EOF
 teal_sidebar() { \
 cat >> $1 << EOF
 <div id="side-bar">
+<center>
 <ul>
 <li><a href="index.html">.</a></li>
 EOF
@@ -46,6 +47,7 @@ EOF
 	done
 cat >> $1 << EOF
 </ul>
+</center>
 </div>
 EOF
 }
