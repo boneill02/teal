@@ -17,7 +17,10 @@ EOF
 teal_head() { \
 	name=$(echo $1 | sed 's/.html//' | awk -F"/" '{OFS="/"; print $NF}')
 	cat > $1 << EOF
+<html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>$name - $TITLE</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -63,6 +66,13 @@ teal_footer() { \
 EOF
 }
 
+teal_end() { \
+	cat >> $1 << EOF
+</body>
+</html>
+EOF
+}
+
 teal_loop() { \
 	# copy all necessary files from source dir to target dir
 	mkdir -p $TARGET
@@ -81,6 +91,7 @@ teal_loop() { \
 		teal_compile $f $out
 		teal_footer $out
 		teal_sidebar $out
+		teal_end $out
 	done
 }
 
