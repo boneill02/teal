@@ -2,13 +2,11 @@
 
 teal_compile() { \
 	cat >> $2 << EOF
-<body>
 <div id="main">
 EOF
 	$MDC $1 >> $2
 cat >> $2 << EOF
 </div>
-</body>
 EOF
 
 	echo "MDC $1 >> $2"
@@ -21,9 +19,16 @@ teal_head() { \
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="/favicon.png" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Language" content="en" />
+<meta content="width=device-width" name="viewport" />
+<meta content="$KEYWORDS" name="keywords" />
+<meta content="$DESCRIPTION" name="description" />
 <title>$name - $TITLE</title>
 <link rel="stylesheet" href="style.css">
 </head>
+<body>
 EOF
 	echo "HTMLINFO $1"
 }
@@ -31,21 +36,22 @@ EOF
 teal_sidebar() { \
 cat >> $1 << EOF
 <div id="side-bar">
-<ul>
-<li><a href="index.html">.</a></li>
+<span>
+<a href="index.html">home</a>
 EOF
 	for f in $EXTRA_PAGES; do
 		cat >> $1 << EOF
-<li><a href="$f.html">$f</a></li>
+<a href="$f.html">$f</a>
 EOF
 	done
-	for f in $(find "$SRC" | grep ".md" | sed "/index.md/d;/^$/d" | sort); do
+	for file in $(find "$SRC" | grep ".md" | sed "/index.md/d;/^$/d" | sort); do
 		cat >> $1 << EOF
-<li><a href="$(echo $f | sed "s,$SRC/,,;s/\.md/\.html/")">$(echo $f | sed "s,$SRC/,,;s/.md//")</a></li>
+<a href="$(echo $file | sed "s,$SRC/,,;s/\.md/\.html/")">$(echo $file | sed "s,$SRC/,,;s/.md//")</a>
 EOF
 	done
 cat >> $1 << EOF
-</ul>
+</span>
+</div>
 </div>
 EOF
 }
@@ -53,8 +59,9 @@ EOF
 teal_header() { \
 	cat >> $1 << EOF
 <div id="header">
-<h1>$TITLE</h1>
-</div>
+<span>
+<img src="/banner.png" />
+</span>
 EOF
 }
 
@@ -88,9 +95,9 @@ teal_loop() { \
 		out="$TARGET/$(echo $f | sed "s/\.md/\.html/;s,$SRC/,,;/^$/d")"
 		teal_head $out
 		teal_header $out
+		teal_sidebar $out
 		teal_compile $f $out
 		teal_footer $out
-		teal_sidebar $out
 		teal_end $out
 	done
 }
