@@ -97,7 +97,7 @@ teal_loop() { \
 		teal_header $out
 		teal_sidebar $out
 		teal_compile $f $out
-		teal_footer $out
+		[ ! -z "$FOOTER" ] && teal_footer $out
 		teal_end $out
 	done
 }
