@@ -52,6 +52,7 @@ EOF
 	cat >> $1 << EOF
 </span>
 </div>
+</span>
 </div>
 EOF
 }
@@ -60,8 +61,7 @@ teal_header() { \
 	cat >> $1 << EOF
 <div id="header">
 <span>
-<img src="/banner.png" />
-</span>
+<img src="banner.png" />
 EOF
 }
 
