@@ -34,19 +34,20 @@ EOF
 }
 
 teal_sidebar() { \
+	barfile=$1
 	cat >> $1 << EOF
 <div id="side-bar">
 <span>
 EOF
-	for f in $EXTRA_PAGES; do
-		cat >> $1 << EOF
-<a href="$(echo $f | sed 's/,.*$//')">$(echo $f | sed 's/.*,//')</a>
-EOF
-	done
 	for file in $(echo $SOURCES | tr ' ' '\n' | sed "s|^|$SRC/|"); do
 		. $(echo $file | sed 's/md$/sh/')
 		cat >> $1 << EOF
 <a href="$(echo $file | sed "s,$SRC/,,;s/\.md/\.html/")">$NAME</a>
+EOF
+	done
+	for ep in $EXTRA_PAGES; do
+		cat >> $1 << EOF
+<a href="$(echo $ep | sed 's/,.*$//')">$(echo $ep | sed 's/.*,//')</a>
 EOF
 	done
 	cat >> $1 << EOF
