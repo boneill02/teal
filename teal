@@ -40,7 +40,7 @@ teal_sidebar() { \
 EOF
 	for f in $EXTRA_PAGES; do
 		cat >> $1 << EOF
-<a href="$f.html">$(echo $f | head -c 1 | tr '[:lower:]' '[:upper:]')$(echo $f | head -c -1)</a>
+<a href="$(echo $f | sed 's/,.*$//'">$(echo $f | sed 's/.*,//')</a>
 EOF
 	done
 	for file in $(echo $SOURCES | tr ' ' '\n' | sed "s|^|$SRC/|"); do
