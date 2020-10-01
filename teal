@@ -34,7 +34,6 @@ EOF
 }
 
 teal_sidebar() { \
-	barfile=$1
 	cat >> $1 << EOF
 <div id="side-bar">
 <span>
