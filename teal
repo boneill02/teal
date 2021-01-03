@@ -13,7 +13,7 @@ EOF
 }
 
 teal_head() { \
-	name=$(echo $1 | sed 's/.html//' | awk -F"/" '{OFS="/"; print $NF}')
+	. $2
 	cat > $1 << EOF
 <html>
 <head>
@@ -25,7 +25,7 @@ teal_head() { \
 <meta content="width=device-width" name="viewport" />
 <meta content="$KEYWORDS" name="keywords" />
 <meta content="$DESCRIPTION" name="description" />
-<title>$name - $TITLE</title>
+<title>$NAME - $TITLE</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -34,24 +34,25 @@ EOF
 }
 
 teal_sidebar() { \
-cat >> $1 << EOF
+	cat >> $1 << EOF
 <div id="side-bar">
 <span>
-<a href="index.html">home</a>
 EOF
-	for f in $EXTRA_PAGES; do
+	for file in $(echo $SOURCES | tr ' ' '\n' | sed "s|^|$SRC/|"); do
+		. $(echo $file | sed 's/md$/sh/')
 		cat >> $1 << EOF
-<a href="$f.html">$f</a>
+<a href="$(echo $file | sed "s,$SRC/,,;s/\.md/\.html/")">$NAME</a>
 EOF
 	done
-	for file in $(find "$SRC" | grep ".md" | sed "/index.md/d;/^$/d" | sort); do
+	for ep in $EXTRA_PAGES; do
 		cat >> $1 << EOF
-<a href="$(echo $file | sed "s,$SRC/,,;s/\.md/\.html/")">$(echo $file | sed "s,$SRC/,,;s/.md//")</a>
+<a href="$(echo $ep | sed 's/,.*$//')">$(echo $ep | sed 's/.*,//')</a>
 EOF
 	done
-cat >> $1 << EOF
+	cat >> $1 << EOF
 </span>
 </div>
+</span>
 </div>
 EOF
 }
@@ -60,8 +61,7 @@ teal_header() { \
 	cat >> $1 << EOF
 <div id="header">
 <span>
-<img src="/banner.png" />
-</span>
+<img src="banner.png" />
 EOF
 }
 
@@ -87,18 +87,19 @@ teal_loop() { \
 	cp -f style.css $TARGET
 
 	# remove the source files
-	for f in $(find $TARGET | grep .md); do
+	for f in $(find $TARGET | egrep '(md)|(sh)$'); do
 		rm -f $f
 	done
 
-	for f in $(find $SRC | grep .md); do
-		out="$TARGET/$(echo $f | sed "s/\.md/\.html/;s,$SRC/,,;/^$/d")"
-		teal_head $out
+	for f in $SOURCES; do
+		settings="$SRC/$(echo $f | sed "s/\.md/\.sh/;/^$/d")"
+		out="$TARGET/$(echo $f | sed "s/\.md/\.html/;/^$/d")"
+		teal_head $out $settings
 		teal_header $out
 		teal_sidebar $out
-		teal_compile $f $out
+		teal_compile "$SRC/$f" $out
 		[ ! -z "$FOOTER" ] && teal_footer $out
-		teal_end $out
+		teal_end $out $settings
 	done
 }
 
