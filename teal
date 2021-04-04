@@ -38,7 +38,7 @@ teal_sidebar() { \
 <div id="side-bar">
 <span>
 EOF
-	for file in $(echo $SIDEBAR_SOURCES | tr ' ' '\n' | sed "s|^|$SRC/|"); do
+	[ ! -z "$SIDEBAR_SOURCES" ] && for file in $(echo $SIDEBAR_SOURCES | tr ' ' '\n' | sed "s|^|$SRC/|"); do
 		. $(echo $file | sed 's/md$/sh/')
 		cat >> $1 << EOF
 <a href="$(echo $file | sed "s,$SRC/,,;s/\.md/\.html/")">$NAME</a>
