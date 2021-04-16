@@ -25,7 +25,7 @@ teal_head() { \
 <meta content="width=device-width" name="viewport" />
 <meta content="$KEYWORDS" name="keywords" />
 <meta content="$DESCRIPTION" name="description" />
-<title>$NAME - $TITLE</title>
+<title>$NAME</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
