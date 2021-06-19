@@ -13,3 +13,8 @@ stylesheet.
 
 Put a `style.css` file and a `teal.conf` file in the current working directory,
 set the variables in the configuration file, then run `teal`.
+
+## License
+
+Copyright (c) 2019-2021 Ben O'Neill <ben@benoneill.xyz>. Licensed under the
+MIT License. See LICENSE.
