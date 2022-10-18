@@ -16,5 +16,5 @@ set the variables in the configuration file, then run `teal`.
 
 ## License
 
-Copyright (c) 2019-2021 Ben O'Neill <ben@benoneill.xyz>. Licensed under the
+Copyright (c) 2019-2021 Ben O'Neill <ben@oneill.sh>. Licensed under the
 MIT License. See LICENSE.
