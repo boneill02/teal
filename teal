@@ -65,7 +65,6 @@ teal_loop() {
 	# copy all necessary files from source dir to target dir
 	mkdir -p $TARGET
 	cp -rf $SRC/* $TARGET
-	cp -f style.css $TARGET
 
 	# remove the source files
 	for f in $(find $TARGET | grep -E '(md)|(sh)$'); do
@@ -85,7 +84,6 @@ teal_loop() {
 
 
 [ ! -f "teal.conf" ] && echo "no teal.conf found! must abort." && exit 1
-[ ! -f "style.css" ] && echo "no style.css found! must abort." && exit 1
 
 . ./teal.conf
 teal_loop
