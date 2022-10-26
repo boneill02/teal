@@ -1,8 +1,9 @@
 #!/bin/sh
 
-teal_compile() { \
+# compile webpage content from markdown to html
+teal_compile() {
 	cat >> $2 << EOF
-<div id="main">
+<div id="wrapper">
 EOF
 	$MDC $1 >> $2
 cat >> $2 << EOF
@@ -12,29 +13,16 @@ EOF
 	echo "MDC $1 >> $2"
 }
 
-teal_head() { \
+# print beginning section of html (before main content and sidebar)
+teal_head() {
 	. $2
 	[ "$1" = "$TARGET/index.html" ] && NAME="$TITLE"
-	cat > $1 << EOF
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="/favicon.png" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="Content-Language" content="en" />
-<meta content="width=device-width" name="viewport" />
-<meta content="$KEYWORDS" name="keywords" />
-<meta content="$DESCRIPTION" name="description" />
-<title>$NAME</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-EOF
+	cp $HEADFILE $1
 	echo "HTMLINFO $1"
 }
 
-teal_sidebar() { \
+# generate link menu
+teal_sidebar() {
 	cat >> $1 << EOF
 <div id="side-bar">
 <span>
@@ -58,15 +46,7 @@ EOF
 EOF
 }
 
-teal_header() { \
-	cat >> $1 << EOF
-<div id="header">
-<span>
-<img src="banner.png" />
-EOF
-}
-
-teal_footer() { \
+teal_footer() {
 	cat >> $1 << EOF
 <div id="footer">
 <p>$FOOTER</p>
@@ -74,14 +54,14 @@ teal_footer() { \
 EOF
 }
 
-teal_end() { \
+teal_end() {
 	cat >> $1 << EOF
 </body>
 </html>
 EOF
 }
 
-teal_loop() { \
+teal_loop() {
 	# copy all necessary files from source dir to target dir
 	mkdir -p $TARGET
 	cp -rf $SRC/* $TARGET
@@ -96,7 +76,6 @@ teal_loop() { \
 		settings="$SRC/$(echo $f | sed "s/\.md/\.sh/;/^$/d")"
 		out="$TARGET/$(echo $f | sed "s/\.md/\.html/;/^$/d")"
 		teal_head $out $settings
-		teal_header $out
 		teal_sidebar $out
 		teal_compile "$SRC/$f" $out
 		[ ! -z "$FOOTER" ] && teal_footer $out
