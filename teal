@@ -68,7 +68,7 @@ teal_loop() {
 	cp -f style.css $TARGET
 
 	# remove the source files
-	for f in $(find $TARGET | egrep '(md)|(sh)$'); do
+	for f in $(find $TARGET | grep -E '(md)|(sh)$'); do
 		rm -f $f
 	done
 
