@@ -2,5 +2,6 @@ MDC=smu
 SRC=example
 TARGET=out
 TITLE="My Site"
+HEADFILE="head.html"
 EXTRA_LINKS="example:example.html"
 FOOTER="powered by <a href="https://github.com/swegbun/teal">teal</a>"
